@@ -1,0 +1,98 @@
+[0] % python3 main.py
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Cola mismo       | 25.00            |
+1. Chicharon        | 12.00            |
+2. Pancit Canton    | 15.00            |
+3. External Misery  | 1500.00          |
+----------------------------------------
+
+( No items in cart. Add items using 'add' )
+Enter command $> add
+Enter the index or name of the item: 1
+Item 'Chicharon' has been added to the cart.
+Enter command $> add
+Enter the index or name of the item: Cola
+Item 'Cola mismo' has been added to the cart.
+Enter command $> items
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Cola mismo       | 25.00            |
+1. Chicharon        | 12.00            |
+2. Pancit Canton    | 15.00            |
+3. External Misery  | 1500.00          |
+----------------------------------------
+
+<=== Items in cart ===>
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Chicharon        | 12.00            |
+1. Cola mismo       | 25.00            |
+----------------------------------------
+
+( Delete items in cart with 'remove' )
+( Checkout items in cart with 'checkout' )
+Enter command $> remove
+Enter the index or name of the item: Cola
+Item 'Cola mismo' has been removed to the cart.
+Enter command $> items
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Cola mismo       | 25.00            |
+1. Chicharon        | 12.00            |
+2. Pancit Canton    | 15.00            |
+3. External Misery  | 1500.00          |
+----------------------------------------
+
+<=== Items in cart ===>
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Chicharon        | 12.00            |
+----------------------------------------
+
+( Delete items in cart with 'remove' )
+( Checkout items in cart with 'checkout' )
+Enter command $> add
+Enter the index or name of the item: Pancit
+Item 'Pancit Canton' has been added to the cart.
+Enter command $> items
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Cola mismo       | 25.00            |
+1. Chicharon        | 12.00            |
+2. Pancit Canton    | 15.00            |
+3. External Misery  | 1500.00          |
+----------------------------------------
+
+<=== Items in cart ===>
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Chicharon        | 12.00            |
+1. Pancit Canton    | 15.00            |
+----------------------------------------
+
+( Delete items in cart with 'remove' )
+( Checkout items in cart with 'checkout' )
+Enter command $> checkout
+The cart has been checked out.
+Enter command $> items
+----------------------------------------
+         Items      |      Price       |
+----------------------------------------
+0. Cola mismo       | 25.00            |
+1. Chicharon        | 12.00            |
+2. Pancit Canton    | 15.00            |
+3. External Misery  | 1500.00          |
+----------------------------------------
+
+( No items in cart. Add items using 'add' )
+Enter command $> exit
+Goodbye!
+

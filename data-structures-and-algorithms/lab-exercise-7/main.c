@@ -7,7 +7,12 @@
 void displayMenu ();
 void enqueue (int main_queue[], int *rear);
 void displayQueue (int main_queue[], int rear, int front);
-void dequeue (int *front);
+void dequeue (int *front, int main_queue[]);
+void pauseInput() {
+    fflush(stdout);
+    getchar();
+    getchar();
+}
 
 // Global variables
 int QSIZE = 10;
@@ -19,6 +24,7 @@ int main ()
     int userPicked = 0;
 
     printf("Type the size of queue(10 min / 200 max): ");
+    fflush(stdout);
     scanf("%d", &userPicked);
 
     // Verify if queue is probable
@@ -37,84 +43,100 @@ int main ()
     int queue[QSIZE], user_option, front = 0, rear = 0, isRun = 1;
 
     printf("Enter to continue...");
-    getchar();
-    getchar();
+    pauseInput();
 
     while (isRun)
     {
         system("clear");
-        displayMenu();
         displayQueue(queue, rear, front);
+        printf("\n");
+
+        displayMenu();
         printf("Enter an option: ");
+        fflush(stdout);
         scanf("%d", &user_option);
+
         switch (user_option) {
             case 1:
                 enqueue(queue, &rear);
                 break;
             case 2:
-                dequeue(&front);
+                dequeue(&front, queue);
                 break;
-            /*case 3:
-                displayQueue(queue, rear);
-                break;*/
-            default:
+            case 3:
                 printf("\nGoodbye...\n"); isRun = 0; break;
+            default:
+                printf("Invalid command...");
+                fflush(stdout);
+                getchar();
+                getchar();
         }
     }
 
-    // Queue operations
     return 0;
 }
 
+// Queue operations
+
 void displayMenu () 
 {
-    printf("-- Queue Menu --\n");
-    printf("[ 1 ] - Enqueue a value.\n");
-    printf("[ 2 ] - Dequeue.\n");
-    printf("[ 3 ] - Display queue value.\n");
-    printf("[ 4 ] - Exit.\n");
+    printf("-- Printer Queue Menu --\n");
+    printf("[ 1 ] - Request to print.\n");
+    printf("[ 2 ] - Perform printing.\n");
+    printf("[ 3 ] - Exit.\n");
 }
 
 void enqueue (int main_queue[], int *rear) 
 {
     if (POPULATED >= QSIZE-1) {
         printf("Queue overflow..");
+        fflush(stdout);
         getchar();
         getchar();
         return;
     }
 
     int value = 0;
-    printf("Enter a value: ");
+    printf("Enter number of pages: ");
+    fflush(stdout);
     scanf("%d", &value);
 
     main_queue[*rear] = value;
     (*rear)++;
     POPULATED++;
+    printf("Print request added: %d pages", value);
+    pauseInput();
 }
 
-void dequeue (int *front) 
+void dequeue (int *front, int main_queue[]) 
 {
-    if (front <= 0) {
+    if (*front < 0) {
         printf("Queue underflow..");
+        fflush(stdout);
         getchar();
         getchar();
         return;
-    } else if (*front >= POPULATED-1) {
-        printf("Minimum is 1..");
+    } else if (*front >= POPULATED) {
+        printf("Blank queue..");
+        fflush(stdout);
         getchar();
         getchar();
         return;
     }
 
+    printf("Printing %d...", main_queue[*front]);
+    pauseInput();
     (*front)++;
 }
 
 void displayQueue (int main_queue[], int rear, int front)
 {
+    printf("Current Printer Queue:\n");
+
     for (int i = front; i < rear; i++) {
-        if (i == rear-1) printf("%d", main_queue[i]);
-        else printf("%d -> ", main_queue[i]);
+        printf("[ %d pages ] ", main_queue[i]);
     }
+
+    if (front >= rear) printf("[ EMPTY ]");
     printf("\n");
 }

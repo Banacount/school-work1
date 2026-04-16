@@ -18,7 +18,7 @@ void displayVertex (struct Node* vertex);
 void displayAdjList (struct Node** graph_list);
 
 // Algotimstims
-void benford_test(struct Node ** graph_list, bool debugMode);
+void bellman_ford_func(struct Node ** graph_list, bool debugMode);
 
 int main () {
     struct Node ** graph_list = (struct Node**)malloc(VERTICES * sizeof(struct Node*));
@@ -48,9 +48,13 @@ int main () {
     addEdge(graph_list[5], 1, 'D', 4);
 
     //test
+    // Before
+    printf("-- Initialization --\n");
     displayAdjList(graph_list);
-    printf("\n-- Benford algo recreation --\n");
-    benford_test(graph_list, false);
+
+    // After
+    printf("\n-- Bellman-Ford Algorithm Recreation --\n");
+    bellman_ford_func(graph_list, true);
     displayAdjList(graph_list);
 
     // Free the vertices
@@ -125,21 +129,16 @@ void displayAdjList (struct Node** graph_list)
     printf("\n");
 }
 
-void benford_test(struct Node ** graph_list, bool debugMode)
+void bellman_ford_func(struct Node ** graph_list, bool debugMode)
 {
-    //int *values = (int*)malloc(VERTICES * sizeof(int));
-
-    //for (int i = 0; i < VERTICES; ++i) {
-    //    values[i] = 0;
-    //}
-
     if (debugMode) printf("Under the hood proces (For Debugging)-->\n");
     for (int round = 0; round < VERTICES-1; ++round) {
+        int hasChanged = 0;
+
         for (int i = 0; i < VERTICES; ++i) {
             struct Node * so = graph_list[i];
             if (!so->reached) continue;
             struct Node * edge = so->next;
-            
 
             // Look at all the edges
             while (edge != NULL) {
@@ -149,10 +148,14 @@ void benford_test(struct Node ** graph_list, bool debugMode)
                 if (!vertex->reached || total_edge < vertex->weight) {
                     vertex->weight = total_edge;
                     vertex->reached = true;
+                    hasChanged = 1;
                 }
                 edge = edge->next;
             }
         }
+
+        // End if it's the same weight for all vertex from the past loop
+        if (!hasChanged) return;
 
         // For debugging
         if (debugMode) {
